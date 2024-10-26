@@ -22,7 +22,8 @@ public class CategoryController {
 	)
 	@GetMapping
 	public List<CategoryResponse> getCategories() {
-		return List.of(new CategoryResponse(1L, 1, null, "침대", List.of(
+		return List.of(
+			new CategoryResponse(1L, 1, null, "침대", List.of(
 				new CategoryResponse(10L, 2, 1L, "침대프레임", List.of(
 					new CategoryResponse(100L, 3, 10L, "일반침대", null),
 					new CategoryResponse(101L, 3, 10L, "수납침대", null))))),
