@@ -27,7 +27,7 @@ public class FurnitureController {
 	@ApiResponse(
 		responseCode = "200", description = "전체/카테고리별 가구 조회 성공"
 	)
-	@GetMapping
+	@GetMapping("/search/category")
 	public FurnitureListResponseDto searchByCategory(@RequestBody final FurnitureSearchByCategoryRequestDto request) {
 		return new FurnitureListResponseDto(List.of(
 			new FurnitureResponseDto(1L, "수납 서랍 침대", "", 1000000, 900000, 10, 1L, "먼데이하우스", List.of(
@@ -49,11 +49,11 @@ public class FurnitureController {
 		), 10, 5, 1, 2, false, true);
 	}
 
-	@Operation(summary = "검색어 기반 가구 조회", description = "마켓의 검색어에 해당하는 가구를 조회한다.")
+	@Operation(summary = "검색어 기반 가구 조회", description = "검색어에 해당하는 가구를 조회한다.")
 	@ApiResponse(
 		responseCode = "200", description = "전체/카테고리 별 가구 조회 성공"
 	)
-	@GetMapping
+	@GetMapping("/search/keyword")
 	public FurnitureListResponseDto searchByKeyword(@RequestBody final FurnitureSearchByKeywordRequestDto request) {
 		return new FurnitureListResponseDto(List.of(
 			new FurnitureResponseDto(2L, "호텔식 침대 프레임", "", 1000000, 900000, 10, 2L, "오트밀하우스", List.of(
@@ -75,9 +75,9 @@ public class FurnitureController {
 		), 10, 5, 1, 2, false, true);
 	}
 
-	@Operation(summary = "검색어 기반 가구 조회", description = "마켓의 검색어에 해당하는 가구를 조회한다.")
+	@Operation(summary = "특정 가구 상세 정보 조회", description = "특정 가구의 상세 정보를 조회한다.")
 	@ApiResponse(
-		responseCode = "200", description = "전체/카테고리 별 가구 조회 성공"
+		responseCode = "200", description = "특정 가구 상세 정보 조회 성공"
 	)
 	@GetMapping("/{id}")
 	public FurnitureResponseDto getFurniture(@PathVariable Long id) {

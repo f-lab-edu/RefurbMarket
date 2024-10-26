@@ -3,12 +3,14 @@ package com.refurbmarket.dto.category;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
-public class CategoryResponse {
+@Getter
+public class CategoryResponseDto {
 	private Long categoryId;
 	private int depth;
 	private Long parentId;
 	private String name;
-	private List<CategoryResponse> children;
+	private List<CategoryResponseDto> children;
 }
