@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class FurnitureSearchByKeywordRequestDto {
-	private Long categoryId;
+	private String keyword;
 	private Integer pageSize = 10;
 	private Integer pageNumber = 0;
 }

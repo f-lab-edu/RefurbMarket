@@ -4,11 +4,13 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class FurnitureResponseDto {
-	private Long productId;
+	private Long furnitureId;
 	private String name;
 	private String imageUrl;
 	private int price;
