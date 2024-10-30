@@ -9,8 +9,6 @@ import lombok.Getter;
 @Getter
 public class CategoryResponseDto {
 	private Long categoryId;
-	private int depth;
-	private Long parentId;
 	private String name;
 	private List<CategoryResponseDto> children;
 }

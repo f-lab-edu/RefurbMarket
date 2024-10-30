@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ public class FurnitureController {
 	@ApiResponse(
 		responseCode = "200", description = "전체/카테고리별 가구 조회 성공"
 	)
-	@GetMapping("/search/category")
+	@PostMapping("/search/category")
 	public FurnitureListResponseDto searchByCategory(@RequestBody final FurnitureSearchByCategoryRequestDto request) {
 		return new FurnitureListResponseDto(List.of(
 			new FurnitureResponseDto(1L, "수납 서랍 침대", "", 1000000, 900000, 10, 1L, "먼데이하우스", List.of(
@@ -53,7 +54,7 @@ public class FurnitureController {
 	@ApiResponse(
 		responseCode = "200", description = "전체/카테고리 별 가구 조회 성공"
 	)
-	@GetMapping("/search/keyword")
+	@PostMapping("/search/keyword")
 	public FurnitureListResponseDto searchByKeyword(@RequestBody final FurnitureSearchByKeywordRequestDto request) {
 		return new FurnitureListResponseDto(List.of(
 			new FurnitureResponseDto(2L, "호텔식 침대 프레임", "", 1000000, 900000, 10, 2L, "오트밀하우스", List.of(

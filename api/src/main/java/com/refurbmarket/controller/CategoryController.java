@@ -23,13 +23,13 @@ public class CategoryController {
 	@GetMapping
 	public List<CategoryResponseDto> getCategories() {
 		return List.of(
-			new CategoryResponseDto(1L, 1, null, "침대", List.of(
-				new CategoryResponseDto(10L, 2, 1L, "침대프레임", List.of(
-					new CategoryResponseDto(100L, 3, 10L, "일반침대", null),
-					new CategoryResponseDto(101L, 3, 10L, "수납침대", null))))),
-			new CategoryResponseDto(2L, 1, null, "테이블", List.of(
-				new CategoryResponseDto(20L, 2, 2L, "식탁", List.of(
-					new CategoryResponseDto(200L, 3, 20L, "입식테이블", null),
-					new CategoryResponseDto(201L, 3, 20L, "아일랜드식탁", null))))));
+			new CategoryResponseDto(1L, "침대", List.of(
+				new CategoryResponseDto(10L, "침대프레임", List.of(
+					new CategoryResponseDto(100L, "일반침대", null),
+					new CategoryResponseDto(101L, "수납침대", null))))),
+			new CategoryResponseDto(2L, "테이블", List.of(
+				new CategoryResponseDto(20L, "식탁", List.of(
+					new CategoryResponseDto(200L, "입식테이블", null),
+					new CategoryResponseDto(201L, "아일랜드식탁", null))))));
 	}
 }

@@ -25,7 +25,8 @@ public class UserController {
 	)
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void signUp(@RequestBody final SignUpRequestDto request) {
+	public LoginResponseDto signUp(@RequestBody final SignUpRequestDto request) {
+		return new LoginResponseDto("김테스트", "test@test.com", "abcdefg");
 	}
 
 	@Operation(summary = "로그인", description = "회원은 로그인을 할 수 있다.")
@@ -34,6 +35,6 @@ public class UserController {
 	)
 	@PostMapping("/login")
 	public LoginResponseDto login(@RequestBody final LoginRequestDto request) {
-		return new LoginResponseDto("abcdefg");
+		return new LoginResponseDto("김테스트", "test@test.com", "abcdefg");
 	}
 }
