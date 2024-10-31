@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.refurbmarket.repository.mapper.UserMapper">
-    <select id="findMemberByEmail" resultType="com.refurbmarket.domain.Member">
-        SELECT id, email, password, name
+    <select id="findByEmail" resultType="com.refurbmarket.domain.User">
+        SELECT id, name, email, password
         FROM User
         WHERE email = #{email}
     </select>
-    <select id="findMemberByEmailAndPassword" resultType="com.refurbmarket.domain.Member">
-        SELECT id, email, password, name
+    <select id="findByEmailAndPassword" resultType="com.refurbmarket.domain.User">
+        SELECT id, name, email, password
         FROM User
         WHERE email = #{email}
           AND password = #{password}

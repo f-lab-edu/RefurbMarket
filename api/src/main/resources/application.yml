@@ -3,12 +3,12 @@ spring:
     name: RefurbMarket
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/RefurbMarket?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:13306/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 
 mybatis:
-  mapper-locations: classpath*:mybatis/mapper/*.xml
+  mapper-locations: mybatis/mapper/*.xml
 
 springdoc:
   api-docs:
