@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.refurbmarket.dto.user.LoginRequestDto;
 import com.refurbmarket.dto.user.LoginResponseDto;
 import com.refurbmarket.dto.user.SignUpRequestDto;
+import com.refurbmarket.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 @Tag(name = "User", description = "User API")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
+	private final UserService userService;
+
 	@Operation(summary = "회원 등록", description = "사용자는 회원가입을 할 수 있다.")
 	@ApiResponse(
 		responseCode = "201", description = "회원 등록 성공"
@@ -26,7 +31,8 @@ public class UserController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public LoginResponseDto signUp(@RequestBody final SignUpRequestDto request) {
-		return new LoginResponseDto("김테스트", "test@test.com", "abcdefg");
+		return userService.createUser(request);
+		// return new LoginResponseDto("김테스트", "test@test.com", "abcdefg");
 	}
 
 	@Operation(summary = "로그인", description = "회원은 로그인을 할 수 있다.")
@@ -35,6 +41,7 @@ public class UserController {
 	)
 	@PostMapping("/login")
 	public LoginResponseDto login(@RequestBody final LoginRequestDto request) {
-		return new LoginResponseDto("김테스트", "test@test.com", "abcdefg");
+		return userService.login(request);
+		// return new LoginResponseDto("김테스트", "test@test.com", "abcdefg");
 	}
 }

@@ -1,5 +1,7 @@
 package com.refurbmarket.dto.user;
 
+import com.refurbmarket.domain.User;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,4 +16,8 @@ public class LoginResponseDto {
 	private String email;
 	@Schema(description = "토큰")
 	private String token;
+
+	public static LoginResponseDto of(User user, String token) {
+		return new LoginResponseDto(user.getName(), user.getEmail(), token);
+	}
 }
