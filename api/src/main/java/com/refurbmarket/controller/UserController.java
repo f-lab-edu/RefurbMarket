@@ -32,7 +32,6 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public LoginResponseDto signUp(@RequestBody final SignUpRequestDto request) {
 		return userService.createUser(request);
-		// return new LoginResponseDto("김테스트", "test@test.com", "abcdefg");
 	}
 
 	@Operation(summary = "로그인", description = "회원은 로그인을 할 수 있다.")
@@ -42,6 +41,5 @@ public class UserController {
 	@PostMapping("/login")
 	public LoginResponseDto login(@RequestBody final LoginRequestDto request) {
 		return userService.login(request);
-		// return new LoginResponseDto("김테스트", "test@test.com", "abcdefg");
 	}
 }
