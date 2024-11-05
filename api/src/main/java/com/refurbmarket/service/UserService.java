@@ -6,14 +6,14 @@ import com.refurbmarket.domain.User;
 import com.refurbmarket.dto.user.LoginRequestDto;
 import com.refurbmarket.dto.user.LoginResponseDto;
 import com.refurbmarket.dto.user.SignUpRequestDto;
-import com.refurbmarket.repository.interfaces.UserRepository;
+import com.refurbmarket.repository.implementation.MyBatisUserRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-	private final UserRepository userRepository;
+	private final MyBatisUserRepository userRepository;
 
 	public LoginResponseDto createUser(SignUpRequestDto request) {
 		User user = request.toDomain();
