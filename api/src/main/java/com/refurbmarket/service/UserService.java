@@ -6,7 +6,7 @@ import com.refurbmarket.domain.User;
 import com.refurbmarket.dto.user.LoginRequestDto;
 import com.refurbmarket.dto.user.LoginResponseDto;
 import com.refurbmarket.dto.user.SignUpRequestDto;
-import com.refurbmarket.repository.implementation.MyBatisUserRepository;
+import com.refurbmarket.repository.MyBatisUserRepository;
 
 import lombok.RequiredArgsConstructor;
 

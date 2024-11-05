@@ -1,4 +1,4 @@
-package com.refurbmarket.repository.implementation;
+package com.refurbmarket.repository;
 
 import java.util.Optional;
 
