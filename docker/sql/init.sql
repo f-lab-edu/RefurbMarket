@@ -196,8 +196,9 @@ create table Payment
     orderId bigint,
     type ENUM('CREDIT_CARD', 'PAYPAL', 'BANK_TRANSFER') NOT NULL,
     status ENUM('PENDING', 'COMPLETED', 'FAILED') NOT NULL,
-    totalPrice bigint,
-    discountPrice bigint,
+    totalOrderPrice bigint,
+    totalDiscountPrice bigint,
+    totalPaymentPrice bigint,
     createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     primary key (id),
@@ -205,4 +206,73 @@ create table Payment
         on delete cascade
         on update cascade
 ) comment = "결제 기록";
+
+drop table if exists Event CASCADE;
+create table Event
+(
+    id bigint AUTO_INCREMENT,
+    name VARCHAR(255),
+    startDate TIMESTAMP(6),
+    endDate TIMESTAMP(6),
+    dailyIssueStartTime TIME,
+    dailyIssueEndTime TIME,
+    createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+    updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+    primary key (id)
+) comment = "이벤트";
+
+drop table if exists Coupon CASCADE;
+create table Coupon
+(
+    id bigint AUTO_INCREMENT,
+    eventId bigint,
+    type ENUM('FIXED', 'PERCENTAGE') NOT NULL,
+    value int,
+    maxQuantity bigint,
+    issuedQuantity bigint,
+    validateStartDate TIMESTAMP(6),
+    validateEndDate TIMESTAMP(6),
+    createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+    updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+    primary key (id),
+    foreign key (eventId) references Event(id)
+        on delete cascade
+        on update cascade
+) comment = "쿠폰";
+
+drop table if exists CouponIssue CASCADE;
+create table CouponIssue
+(
+    id bigint AUTO_INCREMENT,
+    userId bigint,
+    couponId bigint,
+    status ENUM('NOT_ACTIVE', 'ACTIVE', 'USED', 'EXPIRED') NOT NULL,
+    createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+    updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+    primary key (id),
+    foreign key (userId) references User(id)
+        on delete cascade
+        on update cascade,
+    foreign key (couponId) references Coupon(id)
+        on delete cascade
+        on update cascade
+) comment = "쿠폰 발행 기록";
+
+drop table if exists Order_Coupon CASCADE;
+create table Order_Coupon
+(
+    id bigint AUTO_INCREMENT,
+    orderId bigint,
+    couponId bigint,
+    discountPrice bigint,
+    createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+    updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
+    primary key (id),
+    foreign key (orderId) references Order(id)
+        on delete cascade
+        on update cascade,
+    foreign key (couponId) references Coupon(id)
+        on delete cascade
+        on update cascade
+) comment = "상품 주문에서 사용된 쿠폰";
 
