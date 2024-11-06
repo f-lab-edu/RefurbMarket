@@ -1,4 +1,4 @@
-package com.refurbmarket.dto.furniture;
+package com.refurbmarket.dto.response;
 
 import java.util.List;
 

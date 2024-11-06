@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.refurbmarket.common.util.TokenProvider;
 import com.refurbmarket.domain.User;
-import com.refurbmarket.dto.user.LoginRequestDto;
-import com.refurbmarket.dto.user.LoginResponseDto;
-import com.refurbmarket.dto.user.SignUpRequestDto;
+import com.refurbmarket.dto.request.LoginRequestDto;
+import com.refurbmarket.dto.request.SignUpRequestDto;
+import com.refurbmarket.dto.response.LoginResponseDto;
 import com.refurbmarket.repository.MyBatisUserRepository;
 import com.refurbmarket.repository.RedisRepository;
 

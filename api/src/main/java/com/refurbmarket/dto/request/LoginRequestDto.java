@@ -1,4 +1,4 @@
-package com.refurbmarket.dto.user;
+package com.refurbmarket.dto.request;
 
 import com.refurbmarket.domain.User;
 
@@ -16,6 +16,6 @@ public class LoginRequestDto {
 	private String password;
 
 	public User toDomain() {
-		return new User(null, null, email, password);
+		return new User(null, null, email, password, null);
 	}
 }

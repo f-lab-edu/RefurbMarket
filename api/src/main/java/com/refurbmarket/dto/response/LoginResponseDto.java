@@ -1,4 +1,4 @@
-package com.refurbmarket.dto.user;
+package com.refurbmarket.dto.response;
 
 import com.refurbmarket.domain.User;
 

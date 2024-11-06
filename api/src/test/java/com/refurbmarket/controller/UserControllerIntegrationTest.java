@@ -10,9 +10,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.refurbmarket.dto.user.LoginRequestDto;
-import com.refurbmarket.dto.user.LoginResponseDto;
-import com.refurbmarket.dto.user.SignUpRequestDto;
+import com.refurbmarket.dto.request.LoginRequestDto;
+import com.refurbmarket.dto.request.SignUpRequestDto;
+import com.refurbmarket.dto.response.LoginResponseDto;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerIntegrationTest {

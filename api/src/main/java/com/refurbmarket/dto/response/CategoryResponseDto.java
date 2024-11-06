@@ -1,4 +1,4 @@
-package com.refurbmarket.dto.category;
+package com.refurbmarket.dto.response;
 
 import java.util.List;
 

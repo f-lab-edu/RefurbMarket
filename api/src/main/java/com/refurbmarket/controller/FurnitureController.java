@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.refurbmarket.dto.furniture.FurnitureListResponseDto;
-import com.refurbmarket.dto.furniture.FurnitureResponseDto;
-import com.refurbmarket.dto.furniture.FurnitureSearchByCategoryRequestDto;
-import com.refurbmarket.dto.furniture.FurnitureSearchByKeywordRequestDto;
-import com.refurbmarket.dto.furniture.OptionGroupResponseDto;
-import com.refurbmarket.dto.furniture.OptionResponseDto;
+import com.refurbmarket.dto.request.FurnitureSearchByCategoryRequestDto;
+import com.refurbmarket.dto.request.FurnitureSearchByKeywordRequestDto;
+import com.refurbmarket.dto.response.FurnitureListResponseDto;
+import com.refurbmarket.dto.response.FurnitureResponseDto;
+import com.refurbmarket.dto.response.OptionGroupResponseDto;
+import com.refurbmarket.dto.response.OptionResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

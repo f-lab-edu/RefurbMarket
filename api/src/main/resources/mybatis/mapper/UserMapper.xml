@@ -3,18 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.refurbmarket.repository.mapper.UserMapper">
     <select id="findByEmail" resultType="com.refurbmarket.domain.User">
-        SELECT id, name, email, password
+        SELECT id, name, email, password, phoneNumber
         FROM User
         WHERE email = #{email}
     </select>
     <select id="findByEmailAndPassword" resultType="com.refurbmarket.domain.User">
-        SELECT id, name, email, password
+        SELECT id, name, email, password, phoneNumber
         FROM User
         WHERE email = #{email}
           AND password = #{password}
     </select>
     <insert id="insertUser">
-        INSERT INTO User (email, password, name)
-        VALUES (#{user.email}, #{user.password}, #{user.name})
+        INSERT INTO User (email, password, name, phoneNumber)
+        VALUES (#{user.email}, #{user.password}, #{user.name}, #{user.phoneNumber})
     </insert>
 </mapper>

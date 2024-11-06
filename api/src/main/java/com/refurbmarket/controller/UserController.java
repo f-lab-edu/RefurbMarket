@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.refurbmarket.dto.user.LoginRequestDto;
-import com.refurbmarket.dto.user.LoginResponseDto;
-import com.refurbmarket.dto.user.SignUpRequestDto;
+import com.refurbmarket.dto.request.LoginRequestDto;
+import com.refurbmarket.dto.request.SignUpRequestDto;
+import com.refurbmarket.dto.response.LoginResponseDto;
 import com.refurbmarket.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
