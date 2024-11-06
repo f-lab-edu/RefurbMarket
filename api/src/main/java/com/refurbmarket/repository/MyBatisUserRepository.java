@@ -16,7 +16,7 @@ public class MyBatisUserRepository {
 
 	public User insertUser(User user) {
 		userMapper.insertUser(user);
-		return user;
+		return findByEmailAndPassword(user.getEmail(), user.getPassword()).get();
 	}
 
 	public Optional<User> findByEmail(String email) {
