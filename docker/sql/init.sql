@@ -1,4 +1,5 @@
 grant all privileges on RefurbMarket.* to refurb@'%';
+SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';
 drop table if exists User CASCADE;
 create table User
 (
@@ -10,7 +11,8 @@ create table User
     createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     primary key (id)
-) comment = "회원";
+) comment = "회원"
+default charset = utf8mb4;
 
 drop table if exists User_Address CASCADE;
 create table User_Address
@@ -26,7 +28,8 @@ create table User_Address
         on delete cascade
         on update cascade
 
-) comment = "회원의 배송지 주소";
+) comment = "회원의 배송지 주소"
+default charset = utf8mb4;
 
 drop table if exists Seller CASCADE;
 create table Seller
@@ -40,20 +43,22 @@ create table Seller
     createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     primary key (id)
-) comment = "판매자";
+) comment = "판매자"
+default charset = utf8mb4;
+
 INSERT INTO Seller (name, storeName, email, password, phoneNumber)
-VALUES ("김하나", "지누스", "zinus@email.com", "asdf", "01011111111");
+VALUES ('김하나', '지누스', 'zinus@email.com', 'asdf', '01011111111');
 INSERT INTO Seller (name, storeName, email, password, phoneNumber)
-VALUES ("김둘", "까사미아", "casamia@email.com", "asdf", "01022222222");
+VALUES ('김둘', '까사미아', 'casamia@email.com', 'asdf', '01022222222');
 INSERT INTO Seller (name, storeName, email, password, phoneNumber)
-VALUES ("김셋", "한샘", "hanssem@email.com", "asdf", "01033333333");
+VALUES ('김셋', '한샘', 'hanssem@email.com', 'asdf', '01033333333');
 
 
 drop table if exists Category CASCADE;
 create table Category
 (
     id bigint AUTO_INCREMENT,
-    depth bigint,
+    depth int,
     parentId bigint,
     name VARCHAR(255),
     createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
@@ -62,53 +67,54 @@ create table Category
     foreign key (parentId) references Category(id)
         on delete cascade
         on update cascade
-) comment = "카테고리";
+) comment = "카테고리"
+default charset = utf8mb4;
 INSERT INTO Category (depth, parentId, name)
-VALUES (1, null, "침대"); -- 1
+VALUES (1, null, '침대');
 INSERT INTO Category (depth, parentId, name)
-VALUES (1, null, "매트리스·토퍼"); -- 2
+VALUES (1, null, '매트리스·토퍼');
 INSERT INTO Category (depth, parentId, name)
-VALUES (1, null, "테이블·책상·식탁"); -- 3
+VALUES (1, null, '테이블·책상·식탁');
 INSERT INTO Category (depth, parentId, name)
-VALUES (1, null, "소파"); -- 4
+VALUES (1, null, '소파');
 INSERT INTO Category (depth, parentId, name)
-VALUES (1, null, "서랍·수납장"); -- 5
+VALUES (1, null, '서랍·수납장');
 
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 1, "침대프레임"); -- 6
+VALUES (2, 1, '침대프레임');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 1, "침대부속가구"); --7
+VALUES (2, 1, '침대부속가구');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 2, "매트리스"); -- 8
+VALUES (2, 2, '매트리스');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 2, "토퍼"); -- 9
+VALUES (2, 2, '토퍼');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 3, "사이드테이블"); -- 10
+VALUES (2, 3, '사이드테이블');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 3, "식탁"); -- 11
+VALUES (2, 3, '식탁');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 3, "책상"); -- 12
+VALUES (2, 3, '책상');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 3, "좌식테이블"); -- 13
+VALUES (2, 3, '좌식테이블');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 4, "일반소파"); -- 14
+VALUES (2, 4, '일반소파');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 4, "소파베드"); -- 15
+VALUES (2, 4, '소파베드');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 4, "좌식소파"); -- 16
+VALUES (2, 4, '좌식소파');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 5, "수납장"); -- 17
+VALUES (2, 5, '수납장');
 INSERT INTO Category (depth, parentId, name)
-VALUES (2, 5, "서랍장"); --18
+VALUES (2, 5, '서랍장');
 
 INSERT INTO Category (depth, parentId, name)
-VALUES (3, 6, "일반침대"); -- 19
+VALUES (3, 6, '일반침대');
 INSERT INTO Category (depth, parentId, name)
-VALUES (3, 6, "저상형침대"); -- 20
+VALUES (3, 6, '저상형침대');
 INSERT INTO Category (depth, parentId, name)
-VALUES (3, 8, "스프링매트리스"); -- 21
+VALUES (3, 8, '스프링매트리스');
 INSERT INTO Category (depth, parentId, name)
-VALUES (3, 12, "일반책상"); -- 22
+VALUES (3, 12, '일반책상');
 
 drop table if exists Furniture CASCADE;
 create table Furniture
@@ -130,31 +136,32 @@ create table Furniture
     foreign key (categoryId) references Category(id)
         on delete cascade
         on update cascade
-) comment = "가구";
+) comment = "가구"
+default charset = utf8mb4;
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (1, 19, "퀵스냅 침대 프레임", "https://aaa.com/image1", 3000000, 300, 5000);
+VALUES (1, 19, '퀵스냅 침대 프레임', 'https://aaa.com/image1', 3000000, 300, 5000);
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (1, 20, "퍼프 저상형 패브릭 침대 프레임", "https://aaa.com/image2", 5000000, 200, 10000);
+VALUES (1, 20, '퍼프 저상형 패브릭 침대 프레임', 'https://aaa.com/image2', 5000000, 200, 10000);
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (1, 21, "그린티 하이브리드 스프링 침대 매트리스", "https://aaa.com/image3", 10000000, 100, 40000);
+VALUES (1, 21, '그린티 하이브리드 스프링 침대 매트리스', 'https://aaa.com/image3', 10000000, 100, 40000);
 
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (2, 14, "캄포 클래식 4인 카우치소파", "https://aaa.com/image4", 100000000, 200, 10000);
+VALUES (2, 14, '캄포 클래식 4인 카우치소파', 'https://aaa.com/image4', 100000000, 200, 10000);
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (2, 14, "캄포 미니 4인 소파", "https://aaa.com/image5", 20000000, 100, 10000);
+VALUES (2, 14, '캄포 미니 4인 소파', 'https://aaa.com/image5', 20000000, 100, 10000);
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (2, 22, "헬싱키 티테이블", "https://aaa.com/image6", 200000, 400, 5000);
+VALUES (2, 22, '헬싱키 티테이블', 'https://aaa.com/image6', 200000, 400, 5000);
 
 
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (3, 18, "샘베딩 스테디 서랍장 5단", "https://aaa.com/image7", 100000, 5000, 2000);
+VALUES (3, 18, '샘베딩 스테디 서랍장 5단', 'https://aaa.com/image7', 100000, 5000, 2000);
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (3, 18, "크린트 모던 높은 거실장 120cm 서랍형 수납장", "https://aaa.com/image8", 1000000, 2000, 4000);
+VALUES (3, 18, '크린트 모던 높은 거실장 120cm 서랍형 수납장', 'https://aaa.com/image8', 1000000, 2000, 4000);
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
-VALUES (3, 19, "포엠 호텔침대", "https://aaa.com/image9", 100000000, 2000, 30000);
+VALUES (3, 19, '포엠 호텔침대', 'https://aaa.com/image9', 100000000, 2000, 30000);
 
-drop table if exists Order CASCADE;
-create table Order
+drop table if exists `Order` CASCADE;
+create table `Order`
 (
     id bigint AUTO_INCREMENT,
     userId bigint,
@@ -168,7 +175,8 @@ create table Order
     foreign key (userId) references User(id)
         on delete cascade
         on update cascade
-) comment = "주문";
+) comment = "주문"
+default charset = utf8mb4;
 
 drop table if exists Order_Item CASCADE;
 create table Order_Item
@@ -181,13 +189,14 @@ create table Order_Item
     createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     primary key (id),
-    foreign key (orderId) references Order(id)
+    foreign key (orderId) references `Order`(id)
         on delete cascade
         on update cascade,
     foreign key (furnitureId) references Furniture(id)
         on delete cascade
         on update cascade
-) comment = "주문 상품";
+) comment = "주문 상품"
+default charset = utf8mb4;
 
 drop table if exists Payment CASCADE;
 create table Payment
@@ -202,10 +211,11 @@ create table Payment
     createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     primary key (id),
-    foreign key (orderId) references Order(id)
+    foreign key (orderId) references `Order`(id)
         on delete cascade
         on update cascade
-) comment = "결제 기록";
+) comment = "결제 기록"
+default charset = utf8mb4;
 
 drop table if exists Event CASCADE;
 create table Event
@@ -219,7 +229,8 @@ create table Event
     createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     primary key (id)
-) comment = "이벤트";
+) comment = "이벤트"
+default charset = utf8mb4;
 
 drop table if exists Coupon CASCADE;
 create table Coupon
@@ -238,7 +249,8 @@ create table Coupon
     foreign key (eventId) references Event(id)
         on delete cascade
         on update cascade
-) comment = "쿠폰";
+) comment = "쿠폰"
+default charset = utf8mb4;
 
 drop table if exists CouponIssue CASCADE;
 create table CouponIssue
@@ -256,7 +268,8 @@ create table CouponIssue
     foreign key (couponId) references Coupon(id)
         on delete cascade
         on update cascade
-) comment = "쿠폰 발행 기록";
+) comment = "쿠폰 발행 기록"
+default charset = utf8mb4;
 
 drop table if exists Order_Coupon CASCADE;
 create table Order_Coupon
@@ -268,11 +281,12 @@ create table Order_Coupon
     createdAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt  TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6),
     primary key (id),
-    foreign key (orderId) references Order(id)
+    foreign key (orderId) references `Order`(id)
         on delete cascade
         on update cascade,
     foreign key (couponId) references Coupon(id)
         on delete cascade
         on update cascade
-) comment = "상품 주문에서 사용된 쿠폰";
+) comment = "상품 주문에서 사용된 쿠폰"
+default charset = utf8mb4;
 
