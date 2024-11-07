@@ -10,9 +10,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.refurbmarket.dto.request.FurnitureSearchByCategoryRequestDto;
-import com.refurbmarket.dto.request.FurnitureSearchByKeywordRequestDto;
-import com.refurbmarket.dto.response.FurnitureListResponseDto;
 import com.refurbmarket.dto.response.FurnitureResponseDto;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
