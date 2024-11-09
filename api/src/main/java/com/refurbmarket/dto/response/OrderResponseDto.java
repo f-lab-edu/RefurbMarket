@@ -1,17 +1,8 @@
-package com.refurbmarket.dto.request;
-
-import java.util.List;
-
-import com.refurbmarket.dto.PaymentType;
+package com.refurbmarket.dto.response;
 
 import lombok.Getter;
 
 @Getter
-public class OrderRequestDto {
-	private String receiverName;
-	private String receiverAddress;
-	private String receiverPhone;
-	private List<Long> couponIssueIdList;
-	private List<OrderItemRequestDto> orderItemList;
-	private PaymentType type;
+public class OrderResponseDto {
+	private Long id;
 }

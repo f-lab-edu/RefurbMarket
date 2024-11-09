@@ -51,7 +51,7 @@ public class UserControllerIntegrationTest {
 	}
 
 	private SignUpRequestDto signUpRequest() {
-		return new SignUpRequestDto("김테스트", "test@test.com", "testtest12!");
+		return new SignUpRequestDto("김테스트", "test@test.com", "testtest12!", "01011111111");
 	}
 
 	private LoginRequestDto loginRequest() {

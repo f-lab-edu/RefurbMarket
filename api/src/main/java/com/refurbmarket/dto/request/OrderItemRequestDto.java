@@ -1,13 +1,9 @@
 package com.refurbmarket.dto.request;
 
-import java.util.List;
+import lombok.Getter;
 
-public class OrderRequestDto {
-	private Long id;
-	private Long userId;
-	private String receiverName;
-	private String receiverAddress;
-	private String receiverPhone;
-	private List<Long> couponIssueIdList;
-	private List<OrderItemRequestDto> orderItemList;
+@Getter
+public class OrderItemRequestDto {
+	private Long furnitureId;
+	private int quantity;
 }

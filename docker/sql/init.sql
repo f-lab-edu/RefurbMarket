@@ -203,7 +203,7 @@ create table Payment
 (
     id bigint AUTO_INCREMENT,
     orderId bigint,
-    type ENUM('CREDIT_CARD', 'PAYPAL', 'BANK_TRANSFER') NOT NULL,
+    type ENUM('CARD', 'PAY', 'BANK_TRANSFER') NOT NULL,
     status ENUM('PENDING', 'COMPLETED', 'FAILED') NOT NULL,
     totalOrderPrice bigint,
     totalDiscountPrice bigint,

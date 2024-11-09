@@ -29,7 +29,7 @@ public class CategoryControllerIntegrationTest {
 		// then
 		final List<CategoryResponseDto> result = response.getBody();
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(result).hasSize(2);
+		assertThat(result).hasSize(22);
 	}
 
 }
