@@ -33,7 +33,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 	}
 
 	private void validateToken(String token) {
-		Optional.ofNullable(redisRepository.get(token))
+		redisRepository.get(token)
 			.orElseThrow(() -> new RuntimeException("유효하지 않거나 만료된 토큰입니다."));
 	}
 }
