@@ -23,6 +23,6 @@ public class WebConfig implements WebMvcConfigurer {
 				"/users",
 				"/users/login",
 				"/categories",
-				"/furniture/*"));
+				"/furniture/**"));
 	}
 }

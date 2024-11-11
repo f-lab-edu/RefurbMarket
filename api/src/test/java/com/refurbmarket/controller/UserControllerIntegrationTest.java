@@ -9,12 +9,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.jdbc.Sql;
 
 import com.refurbmarket.dto.request.LoginRequestDto;
 import com.refurbmarket.dto.request.SignUpRequestDto;
 import com.refurbmarket.dto.response.LoginResponseDto;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Sql("/cleanup-user.sql")
 public class UserControllerIntegrationTest {
 	@Autowired
 	TestRestTemplate testRestTemplate;
@@ -33,12 +35,15 @@ public class UserControllerIntegrationTest {
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 		assertThat(result.getName()).isEqualTo(request.getName());
 		assertThat(result.getEmail()).isEqualTo(request.getEmail());
+		assertThat(result.getToken()).isNotBlank();
 	}
 
 	@DisplayName("로그인 성공")
 	@Test
 	public void successLogin() throws Exception {
 		// given
+		testRestTemplate.postForEntity("/users", signUpRequest(),
+			LoginResponseDto.class);
 		final String url = "/users/login";
 		final LoginRequestDto request = loginRequest();
 		// when
@@ -48,6 +53,7 @@ public class UserControllerIntegrationTest {
 		final LoginResponseDto result = response.getBody();
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getEmail()).isEqualTo(request.getEmail());
+		assertThat(result.getToken()).isNotBlank();
 	}
 
 	private SignUpRequestDto signUpRequest() {

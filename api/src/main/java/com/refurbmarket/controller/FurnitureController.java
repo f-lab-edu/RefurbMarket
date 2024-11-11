@@ -37,10 +37,11 @@ public class FurnitureController {
 
 	@Operation(summary = "검색어 기반 가구 조회", description = "검색어에 해당하는 가구를 조회한다.")
 	@ApiResponse(
-		responseCode = "200", description = "전체/카테고리 별 가구 조회 성공"
+		responseCode = "200", description = "검색어 기반 가구 조회 성공"
 	)
 	@GetMapping("/search/keyword")
-	public List<FurnitureResponseDto> searchByKeyword(@RequestParam(required = false, defaultValue = "1") int page,
+	public List<FurnitureResponseDto> searchByKeyword(
+		@RequestParam(required = false, defaultValue = "1") int page,
 		@RequestParam(required = false, defaultValue = "100") int limit,
 		@RequestParam(required = false, defaultValue = "") String keyword) {
 		return furnitureService.getFurnitureListByKeyword(page, limit, keyword);
