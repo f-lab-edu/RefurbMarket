@@ -26,7 +26,7 @@ public class UserControllerIntegrationTest {
 	public void successSignUp() throws Exception {
 		// given
 		final String url = "/users";
-		final SignUpRequestDto request = signUpRequest();
+		final SignUpRequestDto request = signUpRequestDto();
 		// when
 		final ResponseEntity<LoginResponseDto> response = testRestTemplate.postForEntity(url, request,
 			LoginResponseDto.class);
@@ -42,10 +42,10 @@ public class UserControllerIntegrationTest {
 	@Test
 	public void successLogin() throws Exception {
 		// given
-		testRestTemplate.postForEntity("/users", signUpRequest(),
+		testRestTemplate.postForEntity("/users", signUpRequestDto(),
 			LoginResponseDto.class);
 		final String url = "/users/login";
-		final LoginRequestDto request = loginRequest();
+		final LoginRequestDto request = loginRequestDto();
 		// when
 		final ResponseEntity<LoginResponseDto> response = testRestTemplate.postForEntity(url, request,
 			LoginResponseDto.class);
@@ -56,11 +56,11 @@ public class UserControllerIntegrationTest {
 		assertThat(result.getToken()).isNotBlank();
 	}
 
-	private SignUpRequestDto signUpRequest() {
+	private SignUpRequestDto signUpRequestDto() {
 		return new SignUpRequestDto("김테스트", "test@test.com", "testtest12!", "01011111111");
 	}
 
-	private LoginRequestDto loginRequest() {
+	private LoginRequestDto loginRequestDto() {
 		return new LoginRequestDto("test@test.com", "testtest12!");
 	}
 }
