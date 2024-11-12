@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import org.springframework.stereotype.Service;
 
@@ -27,12 +26,12 @@ public class FurnitureService {
 
 	public List<FurnitureResponseDto> getFurnitureListByCategory(int page, int limit, Long categoryId) {
 		return getFurnitureList(
-			() -> furnitureRepository.findFurnitureByCategoryIdWithPaging(getOffset(page, limit), limit, categoryId));
+			furnitureRepository.findFurnitureByCategoryIdWithPaging(getOffset(page, limit), limit, categoryId));
 	}
 
 	public List<FurnitureResponseDto> getFurnitureListByKeyword(int page, int limit, String keyword) {
 		return getFurnitureList(
-			() -> furnitureRepository.findFurnitureByKeywordWithPaging(getOffset(page, limit), limit, keyword));
+			furnitureRepository.findFurnitureByKeywordWithPaging(getOffset(page, limit), limit, keyword));
 	}
 
 	public FurnitureResponseDto getFurnitureById(Long id) {
@@ -45,8 +44,7 @@ public class FurnitureService {
 		return furnitureRepository.findById(id).orElseThrow(() -> new RuntimeException("상품이 존재하지 않습니다."));
 	}
 
-	private List<FurnitureResponseDto> getFurnitureList(Supplier<List<Furniture>> furnitureSupplier) {
-		List<Furniture> furnitureList = furnitureSupplier.get();
+	private List<FurnitureResponseDto> getFurnitureList(List<Furniture> furnitureList) {
 		if (furnitureList.isEmpty())
 			return Collections.emptyList();
 
