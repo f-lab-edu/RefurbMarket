@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.refurbmarket.repository.mapper.FurnitureMapper">
+    <select id="findFurnitureByCategoryIdWithPaging" resultType="com.refurbmarket.domain.Furniture">
+        SELECT id,
+        sellerId,
+        categoryId,
+        name,
+        imageUrl,
+        price,
+        stock,
+        deliveryFee
+        FROM Furniture
+        <where>
+            <if test="categoryId != null">
+                categoryId = #{categoryId}
+            </if>
+        </where>
+        LIMIT #{limit}
+        OFFSET #{offset}
+    </select>
+    <select id="findFurnitureByKeywordWithPaging" resultType="com.refurbmarket.domain.Furniture">
+        SELECT id,
+               sellerId,
+               categoryId,
+               name,
+               imageUrl,
+               price,
+               stock,
+               deliveryFee
+        FROM Furniture
+        WHERE name LIKE CONCAT('%', #{keyword}, '%')
+            LIMIT #{limit}
+        OFFSET #{offset}
+    </select>
+    <select id="findById" resultType="com.refurbmarket.domain.Furniture">
+        SELECT id,
+               sellerId,
+               categoryId,
+               name,
+               imageUrl,
+               price,
+               stock,
+               deliveryFee
+        FROM Furniture
+        WHERE id = #{id}
+    </select>
+</mapper>

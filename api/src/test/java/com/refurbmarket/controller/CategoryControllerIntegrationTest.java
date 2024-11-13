@@ -12,7 +12,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.refurbmarket.dto.category.CategoryResponseDto;
+import com.refurbmarket.dto.response.CategoryResponseDto;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CategoryControllerIntegrationTest {
@@ -29,7 +29,7 @@ public class CategoryControllerIntegrationTest {
 		// then
 		final List<CategoryResponseDto> result = response.getBody();
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(result).hasSize(2);
+		assertThat(result).hasSize(5);
 	}
 
 }

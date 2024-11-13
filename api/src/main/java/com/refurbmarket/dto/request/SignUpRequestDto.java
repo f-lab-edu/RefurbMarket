@@ -1,4 +1,6 @@
-package com.refurbmarket.dto.user;
+package com.refurbmarket.dto.request;
+
+import com.refurbmarket.domain.User;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -14,4 +16,10 @@ public class SignUpRequestDto {
 	private String email;
 	@Schema(description = "사용자 비밀번호")
 	private String password;
+	@Schema(description = "사용자 휴대폰 번호")
+	private String phoneNumber;
+
+	public User toDomain() {
+		return new User(null, name, email, password, phoneNumber);
+	}
 }
