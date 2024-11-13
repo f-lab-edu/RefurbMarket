@@ -10,6 +10,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class LoginResponseDto {
+	@Schema(description = "사용자 아이디")
+	private Long id;
 	@Schema(description = "사용자 이름")
 	private String name;
 	@Schema(description = "사용자 이메일")
@@ -18,6 +20,6 @@ public class LoginResponseDto {
 	private String token;
 
 	public static LoginResponseDto of(User user, String token) {
-		return new LoginResponseDto(user.getName(), user.getEmail(), token);
+		return new LoginResponseDto(user.getId(), user.getName(), user.getEmail(), token);
 	}
 }

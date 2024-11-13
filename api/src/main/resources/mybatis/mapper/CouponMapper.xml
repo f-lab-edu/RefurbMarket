@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.refurbmarket.repository.mapper.CouponMapper">
+    <select id="findByIds" resultType="com.refurbmarket.domain.Coupon">
+        SELECT id,
+        eventId,
+        couponType,
+        discountType,
+        value,
+        maxQuantity,
+        issuedQuantity,
+        validateStartDate,
+        validateEndDate,
+        isDuplicateIssuable
+        FROM Coupon
+        WHERE id IN
+        <foreach item="id" collection="idList" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="findById" resultType="com.refurbmarket.domain.Coupon">
+        SELECT id,
+               eventId,
+               couponType,
+               discountType,
+               value,
+               maxQuantity,
+               issuedQuantity,
+               validateStartDate,
+               validateEndDate,
+               isDuplicateIssuable
+        FROM Coupon
+        WHERE id = #{id}
+    </select>
+    <update id="updateIssuedQuantity">
+        UPDATE Coupon
+        SET issuedQuantity = #{coupon.issuedQuantity}
+        WHERE id = #{coupon.id}
+    </update>
+</mapper>

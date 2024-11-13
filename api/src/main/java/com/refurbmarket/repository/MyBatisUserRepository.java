@@ -19,6 +19,10 @@ public class MyBatisUserRepository {
 		return findByEmailAndPassword(user.getEmail(), user.getPassword()).get();
 	}
 
+	public Optional<User> findById(Long id) {
+		return userMapper.findById(id);
+	}
+
 	public Optional<User> findByEmail(String email) {
 		return userMapper.findByEmail(email);
 	}

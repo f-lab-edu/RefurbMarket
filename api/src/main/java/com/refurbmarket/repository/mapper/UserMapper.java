@@ -11,6 +11,8 @@ import com.refurbmarket.domain.User;
 public interface UserMapper {
 	void insertUser(@Param("user") User user);
 
+	Optional<User> findById(Long id);
+
 	Optional<User> findByEmail(String email);
 
 	Optional<User> findByEmailAndPassword(String email, String password);
