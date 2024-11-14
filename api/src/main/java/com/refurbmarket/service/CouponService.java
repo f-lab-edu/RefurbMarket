@@ -57,16 +57,31 @@ public class CouponService {
 	public void issueCoupon(Long eventId, Long couponId, Long userId) {
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		checkEventAvailability(eventId, currentDateTime);
-		Coupon coupon = getCoupon(couponId);
-		checkDuplicateIssuanceStatus(userId, coupon);
+		Coupon coupon = getCoupon(eventId, couponId);
+		checkDuplicateIssuanceStatus(userId, coupon, currentDateTime);
 		increaseCouponQuantity(coupon);
 		saveCouponIssue(userId, couponId, currentDateTime);
 	}
 
-	private void checkDuplicateIssuanceStatus(Long userId, Coupon coupon) {
-		if (!coupon.isDuplicateIssuable() &&
-			couponIssueRepository.findByUserIdAndCouponId(userId, coupon.getId()).isPresent())
+	private void checkDuplicateIssuanceStatus(Long userId, Coupon coupon, LocalDateTime currentDateTime) {
+		List<CouponIssue> couponIssueList = couponIssueRepository.findByUserIdAndCouponId(userId, coupon.getId());
+		if (couponIssueList.size() > 1) {
+			couponIssueList.stream()
+				.filter(couponIssue -> !couponIssue.isUsed())
+				.findAny()
+				.ifPresent(couponIssue -> {
+					throw new RuntimeException("사용하지 않은 동일한 쿠폰이 존재합니다.");
+				});
+
+			couponIssueList.stream()
+				.filter(couponIssue -> couponIssue.isCouponIssuedToday(currentDateTime))
+				.findAny()
+				.ifPresent(couponIssue -> {
+					throw new RuntimeException("하루에 한번만 쿠폰을 발급할 수 있습니다.");
+				});
+		} else if (couponIssueList.size() == 1 && !coupon.isDuplicateIssuable()) {
 			throw new RuntimeException("해당 쿠폰은 중복 발급이 불가합니다.");
+		}
 	}
 
 	private void checkEventAvailability(Long eventId, LocalDateTime currentDateTime) {
@@ -74,8 +89,8 @@ public class CouponService {
 		event.checkAvailability(currentDateTime);
 	}
 
-	private Coupon getCoupon(Long couponId) {
-		return couponRepository.findById(couponId)
+	private Coupon getCoupon(Long eventId, Long couponId) {
+		return couponRepository.findByIdAndEventId(eventId, couponId)
 			.orElseThrow(() -> new RuntimeException("유효하지 않는 쿠폰입니다."));
 	}
 

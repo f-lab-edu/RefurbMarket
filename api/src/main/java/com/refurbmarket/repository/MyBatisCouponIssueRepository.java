@@ -1,7 +1,6 @@
 package com.refurbmarket.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +18,7 @@ public class MyBatisCouponIssueRepository {
 		return couponIssueMapper.findByUserId(userId);
 	}
 
-	public Optional<CouponIssue> findByUserIdAndCouponId(Long userId, Long couponId) {
+	public List<CouponIssue> findByUserIdAndCouponId(Long userId, Long couponId) {
 		return couponIssueMapper.findByUserIdAndCouponId(userId, couponId);
 	}
 

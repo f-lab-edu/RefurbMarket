@@ -12,7 +12,7 @@ import com.refurbmarket.domain.Coupon;
 public interface CouponMapper {
 	List<Coupon> findByIds(List<Long> idList);
 
-	Optional<Coupon> findById(Long id);
+	Optional<Coupon> findByIdAndEventId(Long eventId, Long id);
 
 	void updateIssuedQuantity(@Param("coupon") Coupon coupon);
 }

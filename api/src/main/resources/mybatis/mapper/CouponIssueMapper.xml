@@ -3,22 +3,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.refurbmarket.repository.mapper.CouponIssueMapper">
     <select id="findByUserId" resultType="com.refurbmarket.domain.CouponIssue">
-        SELECT id, userId, couponId, status, createdAt, updatedAt
+        SELECT id, userId, couponId, isUsed, createdAt, updatedAt
         FROM CouponIssue
         WHERE userId = #{userId}
     </select>
     <select id="findByUserIdAndCouponId" resultType="com.refurbmarket.domain.CouponIssue">
-        SELECT id, userId, couponId, status, createdAt, updatedAt
+        SELECT id, userId, couponId, isUsed, createdAt, updatedAt
         FROM CouponIssue
         WHERE userId = #{userId}
           AND couponId = #{couponId}
     </select>
     <insert id="insertCouponIssue">
-        INSERT INTO CouponIssue (id, userId, couponId, status, createdAt, updatedAt)
-        VALUES (#{couponIssue.id},
-                #{couponIssue.userId},
+        INSERT INTO CouponIssue (userId, couponId, isUsed, createdAt, updatedAt)
+        VALUES (#{couponIssue.userId},
                 #{couponIssue.couponId},
-                #{couponIssue.status},
+                #{couponIssue.isUsed},
                 #{couponIssue.createdAt},
                 #{couponIssue.updatedAt})
     </insert>

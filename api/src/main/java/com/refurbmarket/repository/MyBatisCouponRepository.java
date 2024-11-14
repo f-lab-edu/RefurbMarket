@@ -19,8 +19,8 @@ public class MyBatisCouponRepository {
 		return couponMapper.findByIds(idList);
 	}
 
-	public Optional<Coupon> findById(Long id) {
-		return couponMapper.findById(id);
+	public Optional<Coupon> findByIdAndEventId(Long eventId, Long id) {
+		return couponMapper.findByIdAndEventId(eventId, id);
 	}
 
 	public void updateIssuedQuantity(Coupon coupon) {

@@ -19,7 +19,7 @@
             #{id}
         </foreach>
     </select>
-    <select id="findById" resultType="com.refurbmarket.domain.Coupon">
+    <select id="findByIdAndEventId" resultType="com.refurbmarket.domain.Coupon">
         SELECT id,
                eventId,
                couponType,
@@ -31,7 +31,8 @@
                validateEndDate,
                isDuplicateIssuable
         FROM Coupon
-        WHERE id = #{id}
+        WHERE eventId = #{eventId}
+          AND id = #{id}
     </select>
     <update id="updateIssuedQuantity">
         UPDATE Coupon

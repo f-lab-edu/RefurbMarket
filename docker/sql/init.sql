@@ -270,7 +270,7 @@ create table CouponIssue
     id bigint AUTO_INCREMENT,
     userId bigint,
     couponId bigint,
-    status ENUM('NOT_ACTIVE', 'ACTIVE', 'USED', 'EXPIRED') NOT NULL,
+    isUsed TINYINT(1) NOT NULL,
     createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
     primary key (id),
