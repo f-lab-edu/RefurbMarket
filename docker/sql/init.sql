@@ -160,11 +160,82 @@ VALUES (3, 18, '크린트 모던 높은 거실장 120cm 서랍형 수납장', 'h
 INSERT INTO Furniture (sellerId, categoryId, name, imageUrl, price, stock, deliveryFee)
 VALUES (3, 19, '포엠 호텔침대', 'https://aaa.com/image9', 100000000, 2000, 30000);
 
+drop table if exists Event CASCADE;
+create table Event
+(
+    id bigint AUTO_INCREMENT,
+    name VARCHAR(255),
+    startDate DATETIME,
+    endDate DATETIME,
+    dailyIssueStartTime TIME,
+    dailyIssueEndTime TIME,
+    createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    primary key (id)
+) comment = "이벤트"
+default charset = utf8mb4;
+
+INSERT INTO Event (name, startDate, endDate, dailyIssueStartTime, dailyIssueEndTime)
+VALUES ('이벤트1', '2024-10-04 00:00:00', '2025-01-01 23:59:59', '01:00:00', '17:00:00');
+INSERT INTO Event (name, startDate, endDate, dailyIssueStartTime, dailyIssueEndTime)
+VALUES ('이벤트2', '2024-10-04 00:00:00', '2024-12-01 23:59:59', '11:00:00', '13:00:00');
+
+drop table if exists Coupon CASCADE;
+create table Coupon
+(
+    id bigint AUTO_INCREMENT,
+    eventId bigint,
+    couponType ENUM('FIRST_COME_FIRST_SERVED', 'RANDOM_DRAW', 'SIGN_UP') NOT NULL,
+    discountType ENUM('PERCENT', 'AMOUNT') NOT NULL,
+    value int,
+    minOrderPrice bigint,
+    maxDiscountPrice bigint,
+    maxQuantity bigint,
+    issuedQuantity bigint,
+    validateStartDate DATETIME,
+    validateEndDate DATETIME,
+    isDuplicateIssuable TINYINT(1),
+    createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    primary key (id),
+    foreign key (eventId) references Event(id)
+        on delete cascade
+        on update cascade
+) comment = "쿠폰"
+default charset = utf8mb4;
+
+INSERT INTO Coupon (eventId, couponType, discountType, value, minOrderPrice, maxDiscountPrice, maxQuantity, issuedQuantity, validateStartDate, validateEndDate, isDuplicateIssuable)
+VALUES (1, 'FIRST_COME_FIRST_SERVED', 'PERCENT', 50, 10000, 20000, 100, 13, '2024-10-04 00:00:00', '2025-01-01 23:59:59', 0);
+INSERT INTO Coupon (eventId, couponType, discountType, value, minOrderPrice, maxDiscountPrice, maxQuantity, issuedQuantity, validateStartDate, validateEndDate, isDuplicateIssuable)
+VALUES (2, 'FIRST_COME_FIRST_SERVED', 'AMOUNT', 2000, 5000, 2000, 100, 1, '2024-10-04 00:00:00', '2024-12-01 23:59:59', 0);
+
+drop table if exists CouponIssue CASCADE;
+create table CouponIssue
+(
+    id bigint AUTO_INCREMENT,
+    userId bigint,
+    couponId bigint,
+    isUsed TINYINT(1) NOT NULL,
+    createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    primary key (id),
+    foreign key (userId) references User(id)
+        on delete cascade
+        on update cascade,
+    foreign key (couponId) references Coupon(id)
+        on delete cascade
+        on update cascade
+) comment = "쿠폰 발행 기록"
+default charset = utf8mb4;
+
+
 drop table if exists `Order` CASCADE;
 create table `Order`
 (
     id bigint AUTO_INCREMENT,
     userId bigint,
+    couponId bigint,
+    couponIssueId bigint,
     receiverName VARCHAR(255),
     receiverAddress VARCHAR(255),
     receiverPhone VARCHAR(255),
@@ -173,6 +244,12 @@ create table `Order`
     updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
     primary key (id),
     foreign key (userId) references User(id)
+        on delete cascade
+        on update cascade,
+    foreign key (couponId) references Coupon(id)
+        on delete cascade
+        on update cascade,
+    foreign key (couponIssueId) references CouponIssue(id)
         on delete cascade
         on update cascade
 ) comment = "주문"
@@ -185,7 +262,6 @@ create table Order_Item
     orderId bigint,
     furnitureId bigint,
     quantity int,
-    pricePerItem bigInt,
     createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
     primary key (id),
@@ -215,91 +291,5 @@ create table Payment
         on delete cascade
         on update cascade
 ) comment = "결제 기록"
-default charset = utf8mb4;
-
-drop table if exists Event CASCADE;
-create table Event
-(
-    id bigint AUTO_INCREMENT,
-    name VARCHAR(255),
-    startDate DATETIME,
-    endDate DATETIME,
-    dailyIssueStartTime TIME,
-    dailyIssueEndTime TIME,
-    createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    primary key (id)
-) comment = "이벤트"
-default charset = utf8mb4;
-
-INSERT INTO Event (name, startDate, endDate, dailyIssueStartTime, dailyIssueEndTime)
-VALUES ('이벤트1', '2024-10-04 00:00:00', '2025-01-01 23:59:59', '01:00:00', '17:00:00');
-INSERT INTO Event (name, startDate, endDate, dailyIssueStartTime, dailyIssueEndTime)
-VALUES ('이벤트2', '2024-10-04 00:00:00', '2024-12-01 23:59:59', '11:00:00', '13:00:00');
-
-drop table if exists Coupon CASCADE;
-create table Coupon
-(
-    id bigint AUTO_INCREMENT,
-    eventId bigint,
-    couponType ENUM('FIRST_COME_FIRST_SERVED', 'RANDOM_DRAW', 'SIGN_UP') NOT NULL,
-    discountType ENUM('PERCENT', 'AMOUNT') NOT NULL,
-    value int,
-    maxQuantity bigint,
-    issuedQuantity bigint,
-    validateStartDate DATETIME,
-    validateEndDate DATETIME,
-    isDuplicateIssuable TINYINT(1),
-    createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    primary key (id),
-    foreign key (eventId) references Event(id)
-        on delete cascade
-        on update cascade
-) comment = "쿠폰"
-default charset = utf8mb4;
-
-INSERT INTO Coupon (eventId, couponType, discountType, value, maxQuantity, issuedQuantity, validateStartDate, validateEndDate, isDuplicateIssuable)
-VALUES (1, 'FIRST_COME_FIRST_SERVED', 'PERCENT', 50, 100, 13, '2024-10-04 00:00:00', '2025-01-01 23:59:59', 0);
-INSERT INTO Coupon (eventId, couponType, discountType, value, maxQuantity, issuedQuantity, validateStartDate, validateEndDate, isDuplicateIssuable)
-VALUES (2, 'FIRST_COME_FIRST_SERVED', 'AMOUNT', 2000, 100, 1, '2024-10-04 00:00:00', '2024-12-01 23:59:59', 0);
-
-drop table if exists CouponIssue CASCADE;
-create table CouponIssue
-(
-    id bigint AUTO_INCREMENT,
-    userId bigint,
-    couponId bigint,
-    isUsed TINYINT(1) NOT NULL,
-    createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    primary key (id),
-    foreign key (userId) references User(id)
-        on delete cascade
-        on update cascade,
-    foreign key (couponId) references Coupon(id)
-        on delete cascade
-        on update cascade
-) comment = "쿠폰 발행 기록"
-default charset = utf8mb4;
-
-drop table if exists Order_Coupon CASCADE;
-create table Order_Coupon
-(
-    id bigint AUTO_INCREMENT,
-    orderId bigint,
-    couponId bigint,
-    couponIssueId bigint,
-    discountPrice bigint,
-    createdAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt  DATETIME DEFAULT CURRENT_TIMESTAMP,
-    primary key (id),
-    foreign key (orderId) references `Order`(id)
-        on delete cascade
-        on update cascade,
-    foreign key (couponId) references Coupon(id)
-        on delete cascade
-        on update cascade
-) comment = "상품 주문에서 사용된 쿠폰"
 default charset = utf8mb4;
 

@@ -5,13 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Order {
+public class OrderItem {
 	private Long id;
-	private Long userId;
-	private Long couponId;
-	private Long couponIssueId;
-	private String receiverName;
-	private String receiverAddress;
-	private String receiverPhone;
-	private OrderStatus status;
+	private Long orderId;
+	private Long furnitureId;
+	private int quantity;
 }

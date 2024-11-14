@@ -46,4 +46,19 @@
         FROM Furniture
         WHERE id = #{id}
     </select>
+    <select id="findByIds" resultType="com.refurbmarket.domain.Furniture">
+        SELECT id,
+        sellerId,
+        categoryId,
+        name,
+        imageUrl,
+        price,
+        stock,
+        deliveryFee
+        FROM Furniture
+        WHERE id IN
+        <foreach item="id" collection="idList" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

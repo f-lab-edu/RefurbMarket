@@ -15,4 +15,6 @@ public interface FurnitureMapper {
 
 	Optional<Furniture> findById(Long id);
 
+	List<Furniture> findByIds(List<Long> idList);
+
 }

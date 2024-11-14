@@ -16,7 +16,9 @@ public class CouponResponseDto {
 	private Long couponIssueId;
 	private String name;
 	private DiscountType type;
-	private int discount;
+	private int value;
+	private Long minOrderPrice;
+	private Long maxDiscountPrice;
 	private LocalDateTime validateStartDate;
 	private LocalDateTime validateEndDate;
 	private boolean isUsed;
@@ -27,6 +29,8 @@ public class CouponResponseDto {
 			event.getName(),
 			coupon.getDiscountType(),
 			coupon.getValue(),
+			coupon.getMinOrderPrice(),
+			coupon.getMaxDiscountPrice(),
 			coupon.getValidateStartDate(),
 			coupon.getValidateEndDate(),
 			couponIssue.isUsed()

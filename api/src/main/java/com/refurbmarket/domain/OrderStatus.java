@@ -1,12 +1,13 @@
 package com.refurbmarket.domain;
 
-public enum CouponType {
-	FIRST_COME_FIRST_SERVED("선착순"),
-	RANDOM_DRAW("랜덤 추첨"),
-	SIGN_UP("회원가입");
+public enum OrderStatus {
+	CANCELLED("취소됨"),
+	PENDING("처리 중"),
+	SHIPPED("배송 중"),
+	DELIVERED("배송 완료");
 	private final String description;
 
-	CouponType(String description) {
+	OrderStatus(String description) {
 		this.description = description;
 	}
 

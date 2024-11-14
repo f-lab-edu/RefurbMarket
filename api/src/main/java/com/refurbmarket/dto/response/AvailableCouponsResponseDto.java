@@ -12,7 +12,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class AvailableCouponResponseDto {
+public class AvailableCouponsResponseDto {
 	private Long couponId;
 	private Long couponIssueId;
 	private String name;
@@ -24,9 +24,9 @@ public class AvailableCouponResponseDto {
 	private LocalDateTime validateStartDate;
 	private LocalDateTime validateEndDate;
 
-	public static AvailableCouponResponseDto of(CouponIssue couponIssue, Coupon coupon, Event event,
+	public static AvailableCouponsResponseDto of(CouponIssue couponIssue, Coupon coupon, Event event,
 		Long totalDiscountPrice) {
-		return new AvailableCouponResponseDto(
+		return new AvailableCouponsResponseDto(
 			coupon.getId(),
 			couponIssue.getId(),
 			event.getName(),
