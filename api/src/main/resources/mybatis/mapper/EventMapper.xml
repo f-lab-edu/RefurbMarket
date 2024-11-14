@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.refurbmarket.repository.mapper.EventMapper">
+    <select id="findByIds" resultType="com.refurbmarket.domain.Event">
+        SELECT id,
+        name,
+        startDate,
+        endDate,
+        dailyIssueStartTime,
+        dailyIssueEndTime
+        FROM Event
+        WHERE id IN
+        <foreach item="id" collection="idList" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="findById" resultType="com.refurbmarket.domain.Event">
+        SELECT id,
+               name,
+               startDate,
+               endDate,
+               dailyIssueStartTime,
+               dailyIssueEndTime
+        FROM Event
+        WHERE id = #{id}
+    </select>
+</mapper>

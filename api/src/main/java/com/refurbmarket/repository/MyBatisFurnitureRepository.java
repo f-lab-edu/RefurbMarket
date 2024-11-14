@@ -26,4 +26,8 @@ public class MyBatisFurnitureRepository {
 	public Optional<Furniture> findById(Long id) {
 		return furnitureMapper.findById(id);
 	}
+
+	public List<Furniture> findByIds(List<Long> idList) {
+		return furnitureMapper.findByIds(idList);
+	}
 }

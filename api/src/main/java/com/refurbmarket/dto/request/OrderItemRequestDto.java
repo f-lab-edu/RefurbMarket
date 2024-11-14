@@ -7,3 +7,4 @@ public class OrderItemRequestDto {
 	private Long furnitureId;
 	private int quantity;
 }
+
